@@ -63,6 +63,16 @@ public class IP {
         // Return
         return s;
     }
+    
+    /**
+     * Returns true if first octet is 1-126 and CIDR is 8.
+     * @return 
+     */
+    public boolean isClassA() {
+        if (this.octets[0] >= 1 && this.octets[0] <= 126 && this.cidr == 8)
+            return true;
+        return false;
+    }
 
     /**
      * Get octet array.
@@ -109,7 +119,7 @@ public class IP {
      * @return 
      */
     public int getCidr() {
-        return cidr;
+        return this.cidr;
     }
     
     /**
@@ -118,7 +128,13 @@ public class IP {
      */
     public static void main(String[] args) {
         
-        for (int i = 0; i < 100; i++)
-            System.out.println(new IP().toString());
+        for (int i = 0; i < 100; i++) {
+            IP ip = new IP();
+            System.out.println(ip.toString());
+            if (ip.isClassA())
+                System.out.println("  This IP is Class A.\n");
+            else
+                System.out.println();
+        }
     }
 }

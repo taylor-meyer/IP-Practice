@@ -45,14 +45,66 @@ public class IP {
         // Return
         return s;
     }
+
+    /**
+     * Get octet array.
+     * @return 
+     */
+    public int[] getOctets() {
+        return this.octets;
+    }
+    
+    /**
+     * Get first octet.
+     * @return 
+     */
+    public int getFirstOctet() {
+        return this.octets[0];
+    }
+    
+    /**
+     * Get second octet.
+     * @return 
+     */
+    public int getSecondOctet() {
+        return this.octets[1];
+    }
+    
+    /**
+     * Get third octet.
+     * @return 
+     */
+    public int getThirdOctet() {
+        return this.octets[2];
+    }
+    
+    /**
+     * Get fourth octet.
+     * @return 
+     */
+    public int getFourthOctet() {
+        return this.octets[3];
+    }
     
     /**
      * Function to test this class.
      * @param args 
      */
     public static void main(String[] args) {
+        IP ip = new IP();
+        int[] testArray = ip.getOctets();
         
-        for (int i = 0; i < 100; i++)
-            System.out.println(new IP().toString());
+        System.out.println(ip.toString());
+        System.out.println("---");
+        
+        
+        for(int i : testArray)
+            System.out.println(i);
+        
+        System.out.println("---");
+        System.out.println(ip.getFirstOctet());
+        System.out.println(ip.getSecondOctet());
+        System.out.println(ip.getThirdOctet());
+        System.out.println(ip.getFourthOctet());
     }
 }

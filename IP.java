@@ -12,6 +12,9 @@ public class IP {
     // Array of 4 octets (8 bytes) to represent the ip
     private int[] octets = new int[4];
     
+    // CIDR
+    private int cidr;
+    
     /**
      * Default constructor. Generates 4 random octets, 0-255 each.
      */
@@ -23,6 +26,19 @@ public class IP {
         // Random numbers 0-255 per octet
         for (int i = 0; i < 4; i++)
             octets[i] = rand.nextInt(256);
+        
+        // Generate a number 0-3
+        int cidrGen = rand.nextInt(3);
+        
+        // If 0, CIDR = 8
+        if (cidrGen == 0)
+            this.cidr = 8;
+        // If 1, CIDR = 16
+        else if (cidrGen == 1)
+            this.cidr = 16;
+        // If 2, CIDR = 24;
+        else
+            this.cidr = 24;
         
     }
     
@@ -41,6 +57,8 @@ public class IP {
             if (i != 3)
                 s += ".";
         }
+        
+        s += "/" + Integer.toString(this.cidr);
         
         // Return
         return s;
@@ -87,24 +105,20 @@ public class IP {
     }
     
     /**
+     * Get CIDR.
+     * @return 
+     */
+    public int getCidr() {
+        return cidr;
+    }
+    
+    /**
      * Function to test this class.
      * @param args 
      */
     public static void main(String[] args) {
-        IP ip = new IP();
-        int[] testArray = ip.getOctets();
         
-        System.out.println(ip.toString());
-        System.out.println("---");
-        
-        
-        for(int i : testArray)
-            System.out.println(i);
-        
-        System.out.println("---");
-        System.out.println(ip.getFirstOctet());
-        System.out.println(ip.getSecondOctet());
-        System.out.println(ip.getThirdOctet());
-        System.out.println(ip.getFourthOctet());
+        for (int i = 0; i < 100; i++)
+            System.out.println(new IP().toString());
     }
 }

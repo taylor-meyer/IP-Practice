@@ -30,22 +30,28 @@ public class IP {
         // Generate a number 0-3
         int cidrGen = rand.nextInt(3);
         
-        // If 0, CIDR = 8
-        if (cidrGen == 0)
-            this.cidr = 8;
-        // If 1, CIDR = 16
-        else if (cidrGen == 1)
-            this.cidr = 16;
-        // If 2, CIDR = 24;
-        else
-            this.cidr = 24;
-        
+        switch (cidrGen) {
+            // If 0, CIDR = 8
+            case 0:
+                this.cidr = 8;
+                break;
+            // If 1, CIDR = 16
+            case 1:
+                this.cidr = 16;
+                break;
+            // If 2, CIDR = 24;
+            case 2:
+                this.cidr = 24;
+                break;
+            default:
+        } 
     }
     
     /**
      * Returns a string of the IP.
      * @return String in form of 255.255.255.255.
      */
+    @Override
     public String toString() {
         
         // String to return, initalize to first octet
@@ -143,6 +149,25 @@ public class IP {
     }
     
     /**
+     * Returns subnet mask as a string in form of "255.255.255.255".
+     * Currently only works with mask of CIDR /8, /16, /24.
+     * Will need to be modified once masks other than 8/16/24 are generated.
+     * @return 
+     */
+    public String getSubnetMask() {
+        switch (this.cidr) {
+            case 8:
+                return "255.0.0.0";
+            case 16:
+                return "255.255.0.0";
+            case 24:
+                return "255.255.255.0";
+            default:
+                return "ERR";
+        }
+    }
+    
+    /**
      * Function to test this class.
      * @param args 
      */
@@ -150,7 +175,8 @@ public class IP {
         
         for (int i = 0; i < 100; i++) {
             IP ip = new IP();
-            System.out.println(ip.toString());
+            System.out.println("IP: " + ip.toString());
+            System.out.println("Subnet Mask: " + ip.getSubnetMask());
             if (ip.isClassA())
                 System.out.println("  This IP is Class A.\n");
             else if (ip.isClassB())
